@@ -1,14 +1,25 @@
 {
   "name": "WinMenu",
+  "description": "Customizable windows program that shrinks everything that you need into just one menu.",
+  "author": "MartinGamesDEV",
   "version": "0.0.1",
   "main": "src/app.js",
   "license": "CC BY-NC-SA 4.0",
   "private": true,
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "./node_modules/.bin/electron-builder build -w"
+  },
+  "build": {
+    "appId": "dev.martingames.winmenu",
+    "icon": "./assets/logo.png",
+    "win": {
+      "icon": "./assets/logo.png"
+    }
   },
   "devDependencies": {
-    "electron": "^22.0.2"
+    "electron": "^22.0.2",
+    "electron-builder": "^23.6.0"
   },
   "dependencies": {
     "check-disk-space": "^3.3.1",

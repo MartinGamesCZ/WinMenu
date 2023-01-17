@@ -6,6 +6,7 @@ const {
     Tray,
     globalShortcut,
     systemPreferences,
+    Menu,
 } = require("electron");
 const path = require("path");
 
@@ -26,7 +27,7 @@ app.whenReady().then(() => {
 //Create icon in system tray
 function createTray() {
     //Create tray with app icon
-    const tray = new Tray("./src/assets/logo.png");
+    const tray = new Tray(path.join(__dirname, "../assets/logo.png"));
 
     //Display notification
     tray.displayBalloon({
@@ -37,6 +38,10 @@ function createTray() {
     //Set tray title and tooltip
     tray.setTitle("WinMenu");
     tray.setToolTip("Click to open app");
+
+    tray.setContextMenu(Menu.buildFromTemplate([
+        { label: "Exit", type: "normal", click: () => app.quit() }
+    ]))
 
     //Open window on icon click
     tray.on("click", (e) => {
@@ -71,7 +76,7 @@ function createWindow() {
         resizable: false,
         transparent: true,
         frame: false,
-        icon: "./assets/logo.png",
+        icon: "../assets/logo.png",
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -107,5 +112,5 @@ function createWindow() {
     });
 
     //Load UI
-    window.loadFile(__dirname + "/ui/index.html");
+    window.loadFile("./src/ui/index.html");
 }
