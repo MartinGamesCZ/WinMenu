@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="stylesheet" href="../libs/progress_bar/index.css" />
+        <script src="../libs/progress_bar/index.js"></script>
+
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+        />
+
+        <link rel="stylesheet" href="./index.css" />
+    </head>
+    <body>
+        <div class="box m">
+            <div class="box v">
+                <div class="g cpu">
+                    <div
+                        data-preset="circle"
+                        class="cpu_bar bar label-center"
+                    ></div>
+                    CPU
+                </div>
+                <div class="g ram">
+                    <div
+                        data-preset="circle"
+                        class="ram_bar bar label-center"
+                    ></div>
+                    RAM
+                </div>
+                <div class="g ssd">
+                    <div
+                        data-preset="circle"
+                        class="ssd_bar bar label-center"
+                    ></div>
+                    SSD
+                </div>
+            </div>
+            <div class="box c">
+                <div class="box l">
+                    <span class="material-symbols-outlined"> grid_view </span>
+                    Window manager
+                </div>
+                <div class="box l">
+                    <span class="material-symbols-outlined"> settings </span>
+                    Settings
+                </div>
+                <div class="box l hr">
+                    <span class="material-symbols-outlined"> close </span>
+                    Exit
+                </div>
+            </div>
+        </div>
+
+        <script src="./index.js"></script>
+    </body>
+</html>

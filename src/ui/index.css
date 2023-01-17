@@ -1,0 +1,76 @@
+/* Montserrat font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+:root {
+    --accent: #00c2c2; /* Default, actual is from systems accent color */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #0006;
+    backdrop-filter: blur(-15px);
+    font-family: "Montserrat";
+    font-size: small;
+}
+
+.box {
+    background: #fff;
+    width: 350px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.box.l {
+    padding: 5px 10px;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 10px;
+    width: 330px;
+    border-radius: 3px;
+}
+
+.box.l:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.box.l.hr:hover {
+    background: #f55;
+}
+
+.box.v {
+    padding: 15px;
+}
+
+.box.c {
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 0;
+}
+
+.box.m {
+    flex-direction: column;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.g {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: small;
+}
+
+.bar {
+    zoom: 0.95;
+}
