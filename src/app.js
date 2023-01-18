@@ -30,6 +30,7 @@ app.whenReady().then(() => {
     createWindow();
     createTray();
     createGlobalShortcut();
+    attachToStartup();
 });
 
 //Create icon in system tray
@@ -164,4 +165,11 @@ function createWindow() {
 
     //Load UI
     window.loadFile("./src/ui/index.html");
+}
+
+//Attach app to open on computer start
+function attachToStartup() {
+    app.setLoginItemSettings({
+        openAtLogin: true
+    })
 }
