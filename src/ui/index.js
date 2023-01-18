@@ -32,9 +32,24 @@ document.addEventListener("click", (e) => {
 el.ipcRenderer.on("vars", (e, d) => {
     //Set accent color to the received value
     document.querySelector(":root").style.setProperty("--accent", d.clr.accent);
+    document.querySelector(".box.m").classList.add(d.mode)
 });
 
 el.ipcRenderer.send("load");
+
+//IPC to send data to main app
+el.ipcRenderer.on("get_vars", () => {
+    //Send data for window size while in pin mode
+    const bounds = document.querySelector(".box.m").getBoundingClientRect()
+    el.ipcRenderer.send("vars", {
+        pin: {
+            x: bounds.x,
+            y: bounds.y,
+            w: bounds.width,
+            h: bounds.height
+        }
+    })
+})
 
 //Create bars for system values
 const cpu = new ldBar(".cpu_bar", {

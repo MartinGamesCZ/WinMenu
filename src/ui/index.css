@@ -16,6 +16,7 @@ body {
     backdrop-filter: blur(-15px);
     font-family: "Montserrat";
     font-size: small;
+    height: 100vh;
 }
 
 .box {
@@ -61,6 +62,12 @@ body {
     position: fixed;
     bottom: 10px;
     right: 10px;
+}
+
+.box.m.pin {
+    top: 0;
+    left: 0;
+    bottom: 0;
 }
 
 .g {

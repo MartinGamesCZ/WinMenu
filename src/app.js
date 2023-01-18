@@ -7,6 +7,7 @@ const {
     globalShortcut,
     systemPreferences,
     Menu,
+    screen,
 } = require("electron");
 const path = require("path");
 
@@ -14,7 +15,14 @@ const path = require("path");
 require("electron-reload")(__dirname);
 
 //Definition of needed variables
-let window;
+let window,
+    mode = "normal";
+let pin = {
+    x: 0,
+    y: 0,
+    w: 0,
+    h: 0,
+};
 
 //Wait until app is ready
 app.whenReady().then(() => {
@@ -39,9 +47,21 @@ function createTray() {
     tray.setTitle("WinMenu");
     tray.setToolTip("Click to open app");
 
-    tray.setContextMenu(Menu.buildFromTemplate([
-        { label: "Exit", type: "normal", click: () => app.quit() }
-    ]))
+    //Create tray context menu
+    tray.setContextMenu(
+        Menu.buildFromTemplate([
+            { label: "Exit", type: "normal", click: () => app.quit() },
+            {
+                label: "Pin",
+                type: "checkbox",
+                checked: mode == "pin",
+                click: () => {
+                    if (mode == "pin") unpinWindow();
+                    else pinWindow();
+                },
+            },
+        ])
+    );
 
     //Open window on icon click
     tray.on("click", (e) => {
@@ -49,7 +69,7 @@ function createTray() {
     });
 
     //Destroy tray before quiting
-    app.on("before-quit", () => tray.destroy())
+    app.on("before-quit", () => tray.destroy());
 }
 
 //Create system shortcut for opening app
@@ -69,6 +89,25 @@ function hideWindow() {
     window.hide();
 }
 
+//Pin window
+function pinWindow() {
+    mode = "pin";
+    window.setFullScreen(false)
+    window.setAlwaysOnTop(true);
+    window.setSize(Math.round(pin.w), Math.round(pin.h));
+    window.setPosition(Math.round(pin.x), Math.round(pin.y));
+    window.reload();
+    showWindow()
+}
+
+//UnPin window
+function unpinWindow() {
+    mode = "normal";
+    window.maximize();
+    window.setAlwaysOnTop(false);
+    window.reload();
+}
+
 //Function for creating new program window
 function createWindow() {
     //Create new electron window and add config to it
@@ -77,6 +116,10 @@ function createWindow() {
         transparent: true,
         frame: false,
         icon: "../assets/logo.png",
+        width: 50,
+        height: 50,
+        minHeight: 50,
+        maxHeight: 400,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -94,10 +137,18 @@ function createWindow() {
     //Send variables on UI load
     ipcMain.on("load", () => {
         window.webContents.send("vars", {
+            mode: mode,
             clr: {
                 accent: "#" + systemPreferences.getAccentColor(),
             },
         });
+
+        if (mode != "pin") window.webContents.send("get_vars");
+    });
+
+    //Receive variables from UI
+    ipcMain.on("vars", (e, d) => {
+        pin = d.pin;
     });
 
     //Hide window on minimize/close
